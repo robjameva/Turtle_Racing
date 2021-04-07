@@ -23,6 +23,35 @@ def get_number_of_racers():
             print('Number not in range 2-10. Try Again!')
 
 
+def setupFile(name, colors):
+    file = open(name, 'w')
+    for color in colors:
+        file.write(color + ' 0 \n')
+    file.close()
+
+
+def updateScores(winner):
+    oldScore = []
+    file = open('Scores.txt', 'r')
+    for line in file:
+        l = line.split()
+        color = l[0]
+        score = l[1]
+        oldScore.append([color, score])
+    file.close()
+
+    file = open('Scores.txt', 'w')
+
+    for entry in oldScore:
+        for color in colors:
+            if entry[0] == winner:
+                entry[1] = int(entry[1]) + 1
+
+        file.write(str(entry[0]) + ' ' + str(entry[1]) + '\n')
+
+    file.close()
+
+
 def race(colors):
     turtles = create_turtles(colors)
 
@@ -65,5 +94,7 @@ random.shuffle(COLORS)
 colors = COLORS[:racers]
 
 winner = race(colors)
-print('The winner is: ', winner)
+print('AND THE WINNER IS ', winner)
+setupFile('Scores.txt', colors)
+updateScores(winner)
 time.sleep(5)
