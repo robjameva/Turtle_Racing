@@ -94,7 +94,7 @@ random.shuffle(COLORS)
 colors = COLORS[:racers]
 
 winner = race(colors)
-print('AND THE WINNER IS ', winner)
+print('The winner is:', winner)
 setupFile('Scores.txt', colors)
 updateScores(winner)
 time.sleep(5)
